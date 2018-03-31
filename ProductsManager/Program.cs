@@ -8,10 +8,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ProductManager
+namespace ProductsManager
 {
     public class Program
     {
+        static Program()
+        {
+
+        }
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
