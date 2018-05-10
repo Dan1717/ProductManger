@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProductsManager.Models.DTO.Category;
 using ProductsManager.Services.CategoryService;
 using ProductsManager.WebApi.ServiceResponce;
@@ -16,8 +17,10 @@ namespace ProductsManager.WebApi.Controllers
         {
             _categoryService = categoryService;
         }
+
         // GET: api/category
         [HttpGet("{id:int}")]
+        [Authorize]
         public IActionResult Get(int id)
 		{
 	        var categoryResponse = _categoryService.Get(id);
@@ -26,6 +29,7 @@ namespace ProductsManager.WebApi.Controllers
 
         // GET: api/category/5
         [HttpGet]
+        [Authorize]
         public IActionResult Get() {
 	        var categoryResponse = _categoryService.GetAll();
             return categoryResponse.ToJsonResult();
