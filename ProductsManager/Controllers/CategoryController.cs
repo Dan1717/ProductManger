@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using NLog;
 using ProductsManager.Models.DTO.Category;
 using ProductsManager.Services.CategoryService;
 using ProductsManager.WebApi.ServiceResponce;
@@ -12,7 +14,6 @@ namespace ProductsManager.WebApi.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
@@ -29,7 +30,7 @@ namespace ProductsManager.WebApi.Controllers
 
         // GET: api/category/5
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         public IActionResult Get() {
 	        var categoryResponse = _categoryService.GetAll();
             return categoryResponse.ToJsonResult();
