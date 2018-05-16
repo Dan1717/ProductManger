@@ -13,8 +13,4 @@
     <ProjectReference Include="..\ProductsManager.DataAccess\ProductsManager.DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="LogService\" />
-  </ItemGroup>
-
 </Project>

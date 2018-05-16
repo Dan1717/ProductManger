@@ -21,7 +21,7 @@ namespace ProductsManager.WebApi.Controllers
 
         // GET: api/category
         [HttpGet("{id:int}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Get(int id)
 		{
 	        var categoryResponse = _categoryService.Get(id);
@@ -30,7 +30,7 @@ namespace ProductsManager.WebApi.Controllers
 
         // GET: api/category/5
         [HttpGet]
-       // [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Get() {
 	        var categoryResponse = _categoryService.GetAll();
             return categoryResponse.ToJsonResult();
@@ -38,6 +38,7 @@ namespace ProductsManager.WebApi.Controllers
 
         // POST: api/category
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Post([FromBody] CategoryCreate category)
         {
             var categoryResponse = _categoryService.Create(category);
@@ -46,6 +47,7 @@ namespace ProductsManager.WebApi.Controllers
         
         // PUT: api/category/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Put(int id, [FromBody]CategoryUpdate category)
         {
             category.Id = id;
@@ -55,6 +57,7 @@ namespace ProductsManager.WebApi.Controllers
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             return _categoryService.Delete(id).ToJsonResult();

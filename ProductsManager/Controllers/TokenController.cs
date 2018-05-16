@@ -27,7 +27,8 @@ namespace ProductsManager.WebApi.Controllers
             var token = new JwtSecurityToken(
                 claims: new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, username)
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, username.ToLower().Contains("admin") ? "Admin" : "Client")
                 },
                 notBefore: new DateTimeOffset(DateTime.Now).DateTime,
                 expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,

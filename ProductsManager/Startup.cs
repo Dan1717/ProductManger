@@ -16,24 +16,41 @@ using NLog.Web;
 using NLog.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
 
 namespace ProductsManager
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env, IConfiguration configuration)
         {
             Configuration = configuration;
+            CurrentEnvironment = env;
         }
 
+        private IHostingEnvironment CurrentEnvironment
+        {
+            get;
+        }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc();
             services.AddOptions();
-            services.Configure<DatabaseOptions>(Configuration.GetSection("DefaultConnection"));
+
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json", false, true);
+            builder.AddJsonFile($"appsettings.{CurrentEnvironment.EnvironmentName}.json", true, true);
+            var config = builder.Build();
+            services.Configure<DatabaseOptions>((o) =>
+            {
+                o.ConnectionString = config.GetSection("DefaultConnection:ConnectionString").Value;
+            });
             services.UseDataAccessLayer();
 
             services.AddSwaggerGen(c =>
@@ -57,7 +74,6 @@ namespace ProductsManager
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
-                    //ClockSkew = TimeSpan.FromMinutes(5)
                 };
             });
         }
@@ -83,9 +99,9 @@ namespace ProductsManager
             loggerFactory.AddNLog();
             app.AddNLogWeb();
 
+            app.UseAuthentication();
             app.UseMvc();
 
-            app.UseAuthentication();
         }
 
     }
