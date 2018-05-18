@@ -13,4 +13,9 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProductsManager.Services\ProductsManager.Services.csproj" />
+    <ProjectReference Include="..\ProductsManager\ProductsManager.WebApi.csproj" />
+  </ItemGroup>
+
 </Project>
