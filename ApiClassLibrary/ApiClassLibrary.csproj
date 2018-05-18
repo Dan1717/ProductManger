@@ -6,8 +6,7 @@
     <Win32Resource />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PackageOutputPath>$(SolutionDir)</PackageOutputPath>
-    <!--<PackageOutputPath>$(SolutionDir)\ApiClassLibrary\NugetBuild</PackageOutputPath>-->
+    <PackageOutputPath>$(SolutionDir)\ApiClassLibrary\NugetBuild</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
