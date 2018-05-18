@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductsManager.Models.DTO.Product;
 using ProductsManager.Services.ProductServices;
 using ProductsManager.WebApi.ServiceResponce;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ProductsManager.WebApi.Controllers
 {
@@ -17,6 +18,7 @@ namespace ProductsManager.WebApi.Controllers
         }
         // GET: api/Product/5
         [HttpGet("{id}", Name = "Get")]
+        [SwaggerResponse(200, typeof(ProductGet))]
         public IActionResult Get(int id)
         {
             var productResponse = _productService.Get(id);
@@ -25,6 +27,7 @@ namespace ProductsManager.WebApi.Controllers
 
         // GET: api/Product
         [HttpGet]
+        [SwaggerResponse(200, typeof(ProductGetAll))]
         public IActionResult Get()
         {
             var productResponse = _productService.GetAll();
@@ -33,6 +36,7 @@ namespace ProductsManager.WebApi.Controllers
 
         // POST: api/Product
         [HttpPost]
+        [SwaggerResponse(201)]
         public IActionResult Post([FromBody]ProductsCreate product)
         {
             var productResponse = _productService.Create(product);
@@ -41,6 +45,7 @@ namespace ProductsManager.WebApi.Controllers
         
         // PUT: api/Product/5
         [HttpPut("{id}")]
+        [SwaggerResponse(200)]
         public IActionResult Put(int id, [FromBody]ProductUpdate product)
         {
             product.Id = id;
@@ -50,6 +55,7 @@ namespace ProductsManager.WebApi.Controllers
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [SwaggerResponse(200)]
         public IActionResult Delete(int id)
         {
             return _productService.Delete(id).ToJsonResult();

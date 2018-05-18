@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ProductsManager.WebApi.Controllers
 {
@@ -14,6 +15,7 @@ namespace ProductsManager.WebApi.Controllers
 
         [HttpGet]
         [Route("api/Token/{username}/{password}")]
+        [SwaggerResponse(200, typeof(string))]
         public IActionResult Get(string username, string password )
         {
             if (username != password)

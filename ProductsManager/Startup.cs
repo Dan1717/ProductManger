@@ -17,7 +17,6 @@ using NLog.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.IO;
-using System.Threading;
 
 namespace ProductsManager
 {

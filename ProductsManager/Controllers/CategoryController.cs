@@ -5,6 +5,7 @@ using NLog;
 using ProductsManager.Models.DTO.Category;
 using ProductsManager.Services.CategoryService;
 using ProductsManager.WebApi.ServiceResponce;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ProductsManager.WebApi.Controllers
 {
@@ -22,15 +23,16 @@ namespace ProductsManager.WebApi.Controllers
         // GET: api/category
         [HttpGet("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [SwaggerResponse(200, typeof(CategoryGet))]
         public IActionResult Get(int id)
 		{
 	        var categoryResponse = _categoryService.Get(id);
 			return categoryResponse.ToJsonResult();
 		}
 
-        // GET: api/category/5
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        [SwaggerResponse(200, typeof(CategoryGetAll))]
         public IActionResult Get() {
 	        var categoryResponse = _categoryService.GetAll();
             return categoryResponse.ToJsonResult();
@@ -39,6 +41,7 @@ namespace ProductsManager.WebApi.Controllers
         // POST: api/category
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [SwaggerResponse(201)]
         public IActionResult Post([FromBody] CategoryCreate category)
         {
             var categoryResponse = _categoryService.Create(category);
@@ -48,6 +51,7 @@ namespace ProductsManager.WebApi.Controllers
         // PUT: api/category/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [SwaggerResponse(200)]
         public IActionResult Put(int id, [FromBody]CategoryUpdate category)
         {
             category.Id = id;
@@ -58,6 +62,7 @@ namespace ProductsManager.WebApi.Controllers
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [SwaggerResponse(200)]
         public IActionResult Delete(int id)
         {
             return _categoryService.Delete(id).ToJsonResult();
